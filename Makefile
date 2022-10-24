@@ -22,4 +22,4 @@ qemu-debug: start.bin
 	$(QEMU) -m 2G -bios start.bin -nographic -s -S
 
 clean:
-	rm start.elf
+	rm -rf start.elf start.bin test.S
