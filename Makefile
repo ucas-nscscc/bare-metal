@@ -6,8 +6,8 @@ QEMU    :=  /home/haooops/Documents/qemu-la64/build/qemu-system-loongarch64
 
 .PHONY: clean qemu
 
-start.elf: start.S main.c lab0.ld
-	$(CC) -nostdlib -T lab0.ld start.S main.c -O1 -o $@
+start.elf: start.S main.c bare-metal.ld
+	$(CC) -nostdlib -T bare-metal.ld start.S main.c -O2 -o $@
 
 start.bin: start.elf
 	$(OBJCOPY) -O binary start.elf start.bin

@@ -1,34 +1,33 @@
-.extern main
 .text
 .globl _start
 _start:
-    # Config direct window and set PG
-    # li.w    $t0, 0xa0000011
-    # csrwr   $t0, 0x180
-    /* CSR_DMWIN0(0x180): 0xa0000000-0xbfffffff->0x00000000-0x1fffffff Cached */
-    # li.w    $t0, 0x80000001
-    /* CSR_DMWIN1(0x181): 0x80000000-0x9fffffff->0x00000000-0x1fffffff Uncached */
-    # Enable PG
-    # li.w    $t0, 0xb0
-    # csrwr   $t0, 0x0
-    /* CSR_CRMD(0x0): PLV=0, IE=0, PG */
-    la		$sp, bootstacktop
-    la		$t0, main
-    jirl	$ra, $t0, 0
-    la		$t0, print_s
-    la		$a0, string
-    jirl	$ra, $t0, 0
+	# Config direct window and set PG
+	# li.w    $t0, 0xa0000011
+	# csrwr   $t0, 0x180
+	/* CSR_DMWIN0(0x180): 0xa0000000-0xbfffffff->0x00000000-0x1fffffff Cached */
+	# li.w    $t0, 0x80000001
+	/* CSR_DMWIN1(0x181): 0x80000000-0x9fffffff->0x00000000-0x1fffffff Uncached */
+	# Enable PG
+	# li.w    $t0, 0xb0
+	# csrwr   $t0, 0x0
+	/* CSR_CRMD(0x0): PLV=0, IE=0, PG */
+	la	$sp, bootstacktop
+	la	$t0, main
+	jirl	$ra, $t0, 0
+	la	$t0, print_s
+	la	$a0, string
+	jirl	$ra, $t0, 0
 poweroff:
-    idle	0
-    b poweroff
+	idle	0
+	b	poweroff
 _stack:
 .section .data
-    .global bootstack
+	.global bootstack
 bootstack:
-    .space 1024
-    .global bootstacktop
+	.space 1024
+	.global bootstacktop
 bootstacktop:
-    .space 64
-    .global string
+	.space 64
+	.global string
 string:
-	.string "Hello World\n\r"
+	.string "Hello, World!\n\r"
