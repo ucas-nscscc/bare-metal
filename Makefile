@@ -6,20 +6,28 @@ QEMU    :=  /home/haooops/Documents/qemu-la64/build/qemu-system-loongarch64
 
 .PHONY: clean qemu
 
-start.elf: start.S main.c bare-metal.ld
-	$(CC) -nostdlib -T bare-metal.ld start.S main.c -O2 -o $@
+all: inst_ram.coe inst_ram.mif
 
-start.bin: start.elf
-	$(OBJCOPY) -O binary start.elf start.bin
+main.elf: start.S main.c bare-metal.ld
+	$(CC) -nostdlib -T bare-metal.ld start.S main.c -O0 -o $@
 
-test.S: start.elf
-	$(OBJDUMP) -d start.elf > $@
+main.bin: main.elf
+	$(OBJCOPY) -O binary main.elf main.bin
 
-qemu: start.bin
-	$(QEMU) -m 1G -bios start.bin -nographic
+inst_ram.coe inst_ram.mif: main.bin convert
+	./convert
 
-qemu-debug: start.bin
-	$(QEMU) -m 2G -bios start.bin -nographic -s -S
+convert: convert.c
+	gcc ./convert.c -o convert
+
+test.S: main.elf
+	$(OBJDUMP) -d main.elf > $@
+
+qemu: main.bin
+	$(QEMU) -m 1G -bios main.bin -nographic
+
+qemu-debug: main.bin
+	$(QEMU) -m 2G -bios main.bin -nographic -s -S
 
 clean:
-	rm -rf start.elf start.bin test.S
+	rm -rf main.elf main.bin test.S inst_ram.coe inst_ram.mif rom.vlog convert
