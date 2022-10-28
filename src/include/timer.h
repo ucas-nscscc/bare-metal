@@ -1,8 +1,6 @@
 #ifndef _TIMER_H
 #define _TIMER_H
 
-#include <soc.h>
-
 #define Hz * (1)
 #define KHz * (1000 Hz)
 #define MHz * (1000 KHz)
