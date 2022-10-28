@@ -10,7 +10,6 @@ _start:
 	b	1b
 1:
 	la	$sp, bootstacktop
-	la	$t0, main
-	jirl	$ra, $t0, 0
+	bl  main
 poweroff:
 	b	poweroff

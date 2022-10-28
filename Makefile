@@ -3,17 +3,19 @@ CC           :=$(CROSS_COMPILE)gcc
 LD           :=$(CROSS_COMPILE)ld
 OBJCOPY      :=$(CROSS_COMPILE)objcopy
 OBJDUMP      :=$(CROSS_COMPILE)objdump
-QEMU         :=/home/haooops/Documents/qemu-la64/build/qemu-system-loongarch64
+QEMU         :=qemu-system-loongarch64
 
 HOST_CC:=gcc
-
-CFLAGS :=-nostdlib -O2
-LDFLAGS:=$(CFLAGS)
 
 BUILD_HOME:=./build
 OBJ_HOME  :=$(BUILD_HOME)/obj
 SRC_HOME  :=./src
+INC_HOME  :=$(SRC_HOME)/include
+INCLUDE    =$(addprefix -I, $(INC_HOME))
 TOOLS_HOME:=./tools
+
+CFLAGS :=-nostdlib -O0 $(INCLUDE)
+LDFLAGS:=$(CFLAGS)
 
 SRCS     :=$(shell find $(SRC_HOME) -name "*.c")
 BOOT_SRCS:=$(SRC_HOME)/start.S
@@ -28,7 +30,7 @@ TOOLS:=$(BUILD_HOME)/convert
 
 .PHONY: clean qemu
 
-all: inst_ram.coe inst_ram.mif test.S
+all: inst_ram.coe inst_ram.mif $(BUILD_HOME)/test.S
 
 inst_ram.coe inst_ram.mif: $(BIN) $(TOOLS)
 	cd $(BUILD_HOME) && ./convert
