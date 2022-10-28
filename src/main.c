@@ -12,7 +12,7 @@ void horse_race_lamp(struct soc *soc)
 		turn_on = i % 16;
 		led->turn_off_num(led, turn_off);
 		led->turn_on_num(led, turn_on);
-		timer->delay(1);
+		timer->delay(timer, 1);
 		i = (i + 1) % 16;
 	}
 }

@@ -33,7 +33,7 @@ TOOLS:=$(BUILD_HOME)/convert
 all: inst_ram.coe inst_ram.mif $(BUILD_HOME)/test.S
 
 inst_ram.coe inst_ram.mif: $(BIN) $(TOOLS)
-	cd $(BUILD_HOME) && ./convert
+	@cd $(BUILD_HOME) && ./convert
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
@@ -42,11 +42,11 @@ $(ELF): $(BOOT_OBJS) $(OBJS) bare-metal.ld
 	$(LD) $(LDLAGS) -T bare-metal.ld $(BOOT_OBJS) $(OBJS) -o $@
 
 $(OBJ_HOME)/%.o: $(SRC_HOME)/%.c
-	mkdir -p $(shell dirname $@)
+	@mkdir -p $(shell dirname $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_HOME)/%.o: $(SRC_HOME)/%.S
-	mkdir -p $(shell dirname $@)
+	@mkdir -p $(shell dirname $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_HOME)/convert: $(TOOLS_HOME)/convert.c

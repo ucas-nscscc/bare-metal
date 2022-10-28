@@ -8,23 +8,24 @@ static inline unsigned int tick_to_sec(unsigned int tick)
 	return tick / MYSOC_TIMER_FREQ;
 }
 
-static inline void timer_set_count(unsigned int val)
+static inline void timer_set_count(struct timer *timer, unsigned int val)
 {
-	SOC_TIMER = val;
+	*(volatile unsigned *)(timer->addr) = val;
 }
 
-static inline unsigned int timer_get_count()
+static inline unsigned int timer_get_count(struct timer *timer)
 {
-	return SOC_TIMER;
+	return *(volatile unsigned *)(timer->addr);
 }
 
-static inline void timer_delay(unsigned int sec)
+static inline void timer_delay(struct timer *timer, unsigned int sec)
 {
-	unsigned int old_count = timer_get_count();
-	while (tick_to_sec(timer_get_count() - old_count) < sec) ;
+	unsigned int old_count = timer_get_count(timer);
+	while (tick_to_sec(timer_get_count(timer) - old_count) < sec) ;
 }
 
 static struct timer mysoc_timer = {
+	.addr		= (void*)TIMER_ADDR,
 	.freq		= MYSOC_TIMER_FREQ,
 	.set_count	= timer_set_count,
 	.get_count	= timer_get_count,

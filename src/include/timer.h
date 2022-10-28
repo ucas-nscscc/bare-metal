@@ -8,12 +8,13 @@
 #define MHz * (1000 KHz)
 
 struct timer {
+	void *addr;
 	unsigned int freq;
-	void (*set_count)(unsigned int);
-	unsigned int (*get_count)();
-	void (*delay)(unsigned int);
-	void (*mdelay)(unsigned int);
-	void (*udelay)(unsigned int);
+	void (*set_count)(struct timer *, unsigned int);
+	unsigned int (*get_count)(struct timer *);
+	void (*delay)(struct timer *, unsigned int);
+	void (*mdelay)(struct timer *, unsigned int);
+	void (*udelay)(struct timer *, unsigned int);
 };
 
 #endif
