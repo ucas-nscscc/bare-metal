@@ -42,11 +42,11 @@ $(ELF): $(BOOT_OBJS) $(OBJS) bare-metal.ld
 	$(LD) $(LDLAGS) -T bare-metal.ld $(BOOT_OBJS) $(OBJS) -o $@
 
 $(OBJ_HOME)/%.o: $(SRC_HOME)/%.c
-	mkdir -p $(OBJ_HOME)
+	mkdir -p $(shell dirname $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_HOME)/%.o: $(SRC_HOME)/%.S
-	mkdir -p $(OBJ_HOME)
+	mkdir -p $(shell dirname $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_HOME)/convert: $(TOOLS_HOME)/convert.c

@@ -1,33 +1,27 @@
-#define IO_SIMU_ADDR		0xbfafff00
-#define UART_ADDR		0xbfafff10
-#define SIMU_FLAG_ADDR		0xbfafff20
-#define OPEN_TRACE_ADDR		0xbfafff30
-#define NUM_MONITOR_ADDR	0xbfafff40
-#define LED_ADDR		0xbfaff020
-#define LED_RG0_ADDR		0xbfaff030
-#define LED_RG1_ADDR		0xbfaff040
-#define NUM_ADDR		0xbfaff050
-#define SWITCH_ADDR		0xbfaff060
-#define BTN_KEY_ADDR		0xbfaff070
-#define BTN_STEP_ADDR		0xbfaff080
-#define SW_INTER_ADDR		0xbfaff090 //switch interleave
-#define TIMER_ADDR		0xbfafe000
+#include <soc.h>
+#include <mysoc.h>
 
-#define SOC_LED		(*(volatile unsigned *)LED_ADDR     )
-#define SOC_LED_RG0	(*(volatile unsigned *)LED_RG0_ADDR )
-#define SOC_LED_RG1	(*(volatile unsigned *)LED_RG1_ADDR )
-#define SOC_NUM		(*(volatile unsigned *)NUM_ADDR     )
-#define SOC_SWITCH	(*(volatile unsigned *)SWITCH_ADDR  )
-#define SOC_BTN_KEY	(*(volatile unsigned *)BTN_KEY_ADDR )
-#define SOC_BTN_STEP	(*(volatile unsigned *)BTN_STEP_ADDR)
-#define SOC_TIMER	(*(volatile unsigned *)TIMER_ADDR   )
+void horse_race_lamp(struct soc *soc)
+{
+	unsigned int i = 0;
+	struct led *led = soc->led;
+	struct timer *timer = soc->timer;
+	unsigned int turn_off, turn_on;
+	while(1) {
+		turn_off = (i + 16 - 1) % 16;
+		turn_on = i % 16;
+		led->turn_off_num(led, turn_off);
+		led->turn_on_num(led, turn_on);
+		timer->delay(1);
+		i = (i + 1) % 16;
+	}
+}
 
 int main()
 {
-	SOC_LED = 0xaaaa;
-	SOC_LED_RG0 = 0x2;
-	SOC_LED_RG1 = 0x2;
-	SOC_NUM = 0x55555555;
+	struct soc *mysoc = mysoc_init();
+
+	horse_race_lamp(mysoc);
 
 	return 0;
 }
