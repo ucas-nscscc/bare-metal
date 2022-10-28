@@ -7,12 +7,15 @@ void horse_race_lamp(struct soc *soc)
 	struct led *led = soc->led;
 	struct timer *timer = soc->timer;
 	unsigned int turn_off, turn_on;
+
 	while(1) {
 		turn_off = (i + 16 - 1) % 16;
 		turn_on = i % 16;
+
 		led->turn_off_num(led, turn_off);
 		led->turn_on_num(led, turn_on);
 		timer->delay(timer, 1);
+		
 		i = (i + 1) % 16;
 	}
 }
