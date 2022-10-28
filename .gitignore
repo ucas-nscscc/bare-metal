@@ -1,0 +1,14 @@
+.*
+build/*
+
+# git files
+!.gitignore
+
+# make rules
+!Makefile
+
+# linker scripts
+!*.ld
+
+# source files
+!src/*

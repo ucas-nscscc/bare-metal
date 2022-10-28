@@ -1,27 +1,57 @@
-TOOL    :=  loongarch32r-linux-gnusf-
-CC      :=  $(TOOL)gcc
-OBJCOPY :=  $(TOOL)objcopy
-OBJDUMP :=  $(TOOL)objdump
-QEMU    :=  /home/haooops/Documents/qemu-la64/build/qemu-system-loongarch64
+CROSS_COMPILE:=loongarch32r-linux-gnusf-
+CC           :=$(CROSS_COMPILE)gcc
+LD           :=$(CROSS_COMPILE)ld
+OBJCOPY      :=$(CROSS_COMPILE)objcopy
+OBJDUMP      :=$(CROSS_COMPILE)objdump
+QEMU         :=/home/haooops/Documents/qemu-la64/build/qemu-system-loongarch64
+
+HOST_CC:=gcc
+
+CFLAGS :=-nostdlib -O2
+LDFLAGS:=$(CFLAGS)
+
+BUILD_HOME:=./build
+OBJ_HOME  :=$(BUILD_HOME)/obj
+SRC_HOME  :=./src
+TOOLS_HOME:=./tools
+
+SRCS     :=$(shell find $(SRC_HOME) -name "*.c")
+BOOT_SRCS:=$(SRC_HOME)/start.S
+TOOLS    :=$(shell find $(TOOLS_HOME) -name "*.c")
+
+OBJS     :=$(SRCS:$(SRC_HOME)/%.c=$(OBJ_HOME)/%.o)
+BOOT_OBJS:=$(BOOT_SRCS:$(SRC_HOME)/%.S=$(OBJ_HOME)/%.o)
+
+ELF:=$(BUILD_HOME)/main.elf
+BIN:=$(BUILD_HOME)/main.bin
+TOOLS:=$(BUILD_HOME)/convert
 
 .PHONY: clean qemu
 
-all: inst_ram.coe inst_ram.mif
+all: inst_ram.coe inst_ram.mif test.S
 
-main.elf: start.S main.c bare-metal.ld
-	$(CC) -nostdlib -T bare-metal.ld start.S main.c -O0 -o $@
+inst_ram.coe inst_ram.mif: $(BIN) $(TOOLS)
+	cd $(BUILD_HOME) && ./convert
 
-main.bin: main.elf
-	$(OBJCOPY) -O binary main.elf main.bin
+$(BIN): $(ELF)
+	$(OBJCOPY) -O binary $< $@
 
-inst_ram.coe inst_ram.mif: main.bin convert
-	./convert
+$(ELF): $(BOOT_OBJS) $(OBJS) bare-metal.ld
+	$(LD) $(LDLAGS) -T bare-metal.ld $(BOOT_OBJS) $(OBJS) -o $@
 
-convert: convert.c
-	gcc ./convert.c -o convert
+$(OBJ_HOME)/%.o: $(SRC_HOME)/%.c
+	mkdir -p $(OBJ_HOME)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-test.S: main.elf
-	$(OBJDUMP) -d main.elf > $@
+$(OBJ_HOME)/%.o: $(SRC_HOME)/%.S
+	mkdir -p $(OBJ_HOME)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_HOME)/convert: $(TOOLS_HOME)/convert.c
+	$(HOST_CC) $< -o $@
+
+$(BUILD_HOME)/test.S: $(ELF)
+	$(OBJDUMP) -d $< > $@
 
 qemu: main.bin
 	$(QEMU) -m 1G -bios main.bin -nographic
@@ -30,4 +60,4 @@ qemu-debug: main.bin
 	$(QEMU) -m 2G -bios main.bin -nographic -s -S
 
 clean:
-	rm -rf main.elf main.bin test.S inst_ram.coe inst_ram.mif rom.vlog convert
+	rm -rf build
