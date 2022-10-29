@@ -8,6 +8,9 @@ SECTIONS
     .rodata : {
         *(.rodata)
     }
+    .data : {
+        *(.data)
+    }
 
     __bss_start = .;
     .bss : { *(.bss) }
