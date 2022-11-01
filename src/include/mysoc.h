@@ -28,7 +28,8 @@
 #define SOC_BTN_STEP	(*(volatile unsigned *)BTN_STEP_ADDR)
 #define SOC_TIMER	(*(volatile unsigned *)TIMER_ADDR   )
 
-#define MYSOC_TIMER_FREQ (100 MHz)
+#define MYSOC_TIMER_FREQ        (100 MHz)
+#define CPU_COUNT_PER_US        100
 
 struct soc *mysoc_init();
 

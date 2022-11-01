@@ -1,20 +1,25 @@
-#include <soc.h>
 #include <mysoc.h>
+#include <soc.h>
+#include <time.h>
 
-void horse_race_lamp(struct soc *soc)
+//delay (reps) ms
+void delay(int reps) {
+  volatile unsigned int i;
+
+  SOC_TIMER = 0;
+  while(get_us()<1000*reps)    //1ms*reps
+    ;	// delay 
+}
+
+void horse_race_lamp()
 {
 	unsigned int i = 0;
-	struct led *led = soc->led;
-	struct timer *timer = soc->timer;
-	unsigned int turn_off, turn_on;
+	SOC_LED = 0xffff;
 
 	while(1) {
-		turn_off = (i + 16 - 1) % 16;
-		turn_on = i % 16;
-
-		led->turn_off_num(led, turn_off);
-		led->turn_on_num(led, turn_on);
-		timer->delay(timer, 1);
+		SOC_LED = 0xffff;
+		SOC_LED = ~(1 << i);
+		delay(1000);
 		
 		i = (i + 1) % 16;
 	}
@@ -22,9 +27,7 @@ void horse_race_lamp(struct soc *soc)
 
 int main()
 {
-	struct soc *mysoc = mysoc_init();
-
-	horse_race_lamp(mysoc);
+	horse_race_lamp();
 
 	return 0;
 }
