@@ -11,7 +11,7 @@ void delay(int reps) {
     ;	// delay 
 }
 
-void horse_race_lamp()
+int main()
 {
 	unsigned int i = 0;
 	SOC_LED = 0xffff;
@@ -23,11 +23,6 @@ void horse_race_lamp()
 		
 		i = (i + 1) % 16;
 	}
-}
-
-int main()
-{
-	horse_race_lamp();
 
 	return 0;
 }

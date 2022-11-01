@@ -43,4 +43,5 @@ struct timeval{
 };
 
 unsigned long get_count();
+unsigned long get_us();
 #endif
