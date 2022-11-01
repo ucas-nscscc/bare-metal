@@ -14,7 +14,7 @@ INC_HOME  :=$(SRC_HOME)/include
 INCLUDE    =$(addprefix -I, $(INC_HOME))
 TOOLS_HOME:=./tools
 
-CFLAGS :=-nostdlib -O0 $(INCLUDE)
+CFLAGS :=-nostdlib -O0 $(INCLUDE) -static
 LDFLAGS:=$(CFLAGS)
 
 SRCS     :=$(shell find $(SRC_HOME) -name "*.c")
