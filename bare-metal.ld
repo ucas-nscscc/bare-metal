@@ -11,11 +11,11 @@ SECTIONS
     .data : {
         *(.data)
     }
-
-    __bss_start = .;
-    .bss : { *(.bss) }
-    __bss_end = .;
-
+    .bss : {
+        __bss_start = .;
+        *(.bss)
+        __bss_end = .;
+    }
     . = ALIGN(0x1000);
     bootstack = .;
     bootstacktop = . + 0x1000;
