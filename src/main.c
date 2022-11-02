@@ -19,7 +19,7 @@ int main()
 	while(1) {
 		SOC_LED = 0xffff;
 		SOC_LED = ~(1 << i);
-		// delay(1000);
+		delay(1000);
 		
 		i = (i + 1) % 16;
 	}
