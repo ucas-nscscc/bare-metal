@@ -1,7 +1,8 @@
 ENTRY(_start)
 SECTIONS
 {
-    . = 0x1c000000;
+    . = 0x1c008000;
+    __code_start = .;
     .text : {
         *(.text)
     }
@@ -16,7 +17,10 @@ SECTIONS
         *(.bss)
         __bss_end = .;
     }
+    . = ALIGN(0x4);
+    __code_end = .;
     . = ALIGN(0x1000);
     bootstack = .;
-    bootstacktop = . + 0x1000;
+    . += 0x1000;
+    bootstacktop = . ;
 }

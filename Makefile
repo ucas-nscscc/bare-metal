@@ -18,7 +18,7 @@ CFLAGS :=-nostdlib -O0 $(INCLUDE)
 LDFLAGS:=$(CFLAGS)
 
 SRCS     :=$(shell find $(SRC_HOME) -name "*.c")
-BOOT_SRCS:=$(SRC_HOME)/start.S
+BOOT_SRCS:=$(SRC_HOME)/boot.S
 TOOLS    :=$(shell find $(TOOLS_HOME) -name "*.c")
 
 OBJS     :=$(SRCS:$(SRC_HOME)/%.c=$(OBJ_HOME)/%.o)
