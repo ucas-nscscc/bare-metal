@@ -1,5 +1,3 @@
-#include <led.h>
-#include <timer.h>
 #include <mysoc.h>
 #include <soc.h>
 
@@ -60,6 +58,68 @@ static struct led_rg mysoc_led_rg1 = {
 };
 #pragma endregion led_rg
 
+#pragma region num
+void num_set_one(struct num * this, unsigned int pos, unsigned char value)
+{
+	unsigned mask = ~(0xf << (pos << 2));
+	unsigned realvalue = value << (pos << 2);
+	unsigned allvalue  = mask & this->cur_value | realvalue;
+	this->set_all(this, allvalue);
+}
+
+void num_set_all(struct num * this, unsigned int value)
+{
+	this->cur_value = value;
+	*(volatile unsigned *)(this->addr) = value;
+}
+
+static struct num mysoc_num = {
+	.addr		= (void*)NUM_ADDR,
+	.cur_value	= 0,
+	.set_one	= num_set_one,
+	.set_all	= num_set_all,
+};
+#pragma endregion num
+
+#pragma region sw
+unsigned char sw_get_one(struct sw * this, unsigned int pos)
+{
+	unsigned char allvalue = this->get_all(this);
+	return (allvalue & (1 << pos)) != 0;
+}
+
+unsigned char sw_get_all(struct sw * this)
+{
+	/** NOTE: switch on is zero, but we return 1 when switch on */
+	return ~(*(volatile unsigned *)(this->addr));
+}
+
+static struct sw mysoc_sw = {
+	.addr		= (void*)SWITCH_ADDR,
+	.get_one	= sw_get_one,
+	.get_all	= sw_get_all,
+};
+#pragma endregion sw
+
+#pragma region btn_key
+unsigned char btn_key_get_one(struct btn_key * this, unsigned int pos)
+{
+	unsigned short allvalue = this->get_all(this);
+	return (allvalue & (1 << pos)) != 0;
+}
+
+unsigned short btn_key_get_all(struct btn_key * this)
+{
+	return *(volatile unsigned *)(this->addr);
+}
+
+static struct btn_key mysoc_btn_key = {
+	.addr		= (void*)BTN_KEY_ADDR,
+	.get_one	= btn_key_get_one,
+	.get_all	= btn_key_get_all,
+};
+#pragma endregion btn_key
+
 #pragma region timer
 static inline unsigned int tick_to_sec(unsigned int tick)
 {
@@ -101,6 +161,9 @@ static struct soc mysoc = {
 	.led	= &mysoc_led,
 	.led_rg0= &mysoc_led_rg0,
 	.led_rg1= &mysoc_led_rg1,
+	.num	= &mysoc_num,
+	.sw 	= &mysoc_sw,
+	.btn_key= &mysoc_btn_key,
 	.timer  = &mysoc_timer,
 };
 
