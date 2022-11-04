@@ -5,8 +5,13 @@
 #include <timer.h>
 
 struct soc {
-        struct led *led;
-        struct timer *timer;
+        struct led *    led;
+        struct led_rg * led_rg0;
+        struct led_rg * led_rg1;
+        struct num *    num;
+        struct sw *     sw;
+        struct btnkey * btnkey;
+        struct timer *  timer;
 };
 
 #endif

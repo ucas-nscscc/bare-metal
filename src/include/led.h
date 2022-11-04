@@ -12,8 +12,9 @@ struct led {
 };
 
 struct led_rg {
-        void (*turn_on)(unsigned int color);
-        void (*turn_off)(void);
+        void *addr;
+        void (*turn_on)(struct led_rg *, unsigned int color);
+        void (*turn_off)(struct led_rg *);
 };
 
 #endif

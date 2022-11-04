@@ -28,7 +28,10 @@
 #define SOC_BTN_STEP	(*(volatile unsigned *)BTN_STEP_ADDR)
 #define SOC_TIMER	(*(volatile unsigned *)TIMER_ADDR   )
 
-#define MYSOC_TIMER_FREQ (100 MHz)
+#define MYSOC_TIMER_FREQ	(100 MHz)
+#define LED_RG_GREEN		0x1
+#define LED_RG_RED		0x2
+#define LED_RG_GREEN_RED 	0x3
 
 struct soc *mysoc_init();
 

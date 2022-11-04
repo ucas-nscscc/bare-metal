@@ -1,9 +1,8 @@
-// #include <stdio.h>
+#include <fib.h>
 
 int fib(int end_i)
 {
     int i;
-    // scanf("%d", &end_i);
     int f0 = 1, f1 = 1, f2, sum;
     if (end_i == 1) sum = 1;
     else if (end_i == 2) sum = 2;
@@ -17,6 +16,5 @@ int fib(int end_i)
         }
     }
 
-    // printf("sum is %d\n", sum);
     return sum;
 }
