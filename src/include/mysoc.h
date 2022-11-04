@@ -1,4 +1,4 @@
-#ifndef _MSOC_H
+#ifndef _MYSOC_H
 #define _MYSOC_H
 
 #include <soc.h>
