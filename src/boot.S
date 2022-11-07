@@ -1,5 +1,7 @@
-.text
+.section entry, "ax"
 .globl _start
+.type _start, @function
+
 _start:
 	la	$t0, __code_start
 	la	$t1, __code_end

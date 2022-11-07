@@ -4,6 +4,7 @@ SECTIONS
     . = 0x1c008000;
     __code_start = .;
     .text : {
+        *(entry)
         *(.text)
     }
     .rodata : {
