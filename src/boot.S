@@ -3,10 +3,11 @@
 .type _start, @function
 
 _start:
-	la	$t0, __code_start
-	la	$t1, __code_end
-	li.w	$t2, 0x8000
-	sub.w	$t2, $t0, $t2
+	/* copy .data section to RAM */
+	la	$t0, __data_start
+	la	$t1, __data_size
+	add.w	$t1, $t0, $t1
+	la	$t2, __data_load_start
 1:
 	beq	$t0, $t1, 1f
 	ld.w	$t3, $t2, 0
@@ -15,12 +16,7 @@ _start:
 	addi.w	$t2, $t2, 4
 	b	1b
 1:
-
-	// dbar	0
-	la	$t0, real_start
-	jr	$t0
-
-real_start:
+	/* clear .bss section */
 	la	$t0, __bss_start
 	la	$t1, __bss_end
 2:
@@ -29,7 +25,7 @@ real_start:
 	addi.w	$t0, $t0, 1
 	b	2b
 2:
-
+	/* set stack pointer and jump to C code */
 	la	$sp, bootstacktop
 	bl	main
 	

@@ -12,6 +12,7 @@ OBJ_HOME  :=$(BUILD_HOME)/obj
 SRC_HOME  :=./src
 INC_HOME  :=$(SRC_HOME)/include
 INCLUDE    =$(addprefix -I, $(INC_HOME))
+SCRIPTS_HOME:=./scripts
 TOOLS_HOME:=./tools
 
 CFLAGS :=-nostdlib -O0 $(INCLUDE)
