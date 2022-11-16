@@ -11,19 +11,22 @@ SECTIONS
     } > ROM
     .rodata : {
         *(.rodata)
+        . = ALIGN(0x4);
         __rodata_end = .;
     } > ROM
     
-    .data : AT(__rodata_end) ALIGN(0x4) {
+    .data : AT(__rodata_end) {
         __data_start = .;
         *(.data)
+        . = ALIGN(0x4);
         __data_end = .;
     } > RAM
     __data_size = SIZEOF(.data);
     __data_load_start = LOADADDR(.data);
-    .bss : ALIGN(0x4) {
+    .bss : {
         __bss_start = .;
         *(.bss)
+        . = ALIGN(0x4);
         __bss_end = .;
     } > RAM
 
