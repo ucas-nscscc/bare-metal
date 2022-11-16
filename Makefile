@@ -18,12 +18,13 @@ TOOLS_HOME:=./tools
 CFLAGS :=-nostdlib -O0 $(INCLUDE)
 LDFLAGS:=$(CFLAGS)
 
-SRCS     :=$(shell find $(SRC_HOME) -name "*.c")
-BOOT_SRCS:=$(SRC_HOME)/boot.S
-TOOLS    :=$(shell find $(TOOLS_HOME) -name "*.c")
+SRCS  :=$(shell find $(SRC_HOME) -name "*.c")
+SSRCS :=$(shell find $(SRC_HOME) -name "*.S")
+TOOLS :=$(shell find $(TOOLS_HOME) -name "*.c")
 
-OBJS     :=$(SRCS:$(SRC_HOME)/%.c=$(OBJ_HOME)/%.o)
-BOOT_OBJS:=$(BOOT_SRCS:$(SRC_HOME)/%.S=$(OBJ_HOME)/%.o)
+OBJS :=$(SRCS:$(SRC_HOME)/%.c=$(OBJ_HOME)/%.o)
+OBJS +=$(SSRCS:$(SRC_HOME)/%.S=$(OBJ_HOME)/%.o)
+SRCS += SSRCS
 
 ELF:=$(BUILD_HOME)/main.elf
 BIN:=$(BUILD_HOME)/main.bin
@@ -39,8 +40,8 @@ inst_ram.coe inst_ram.mif: $(BIN) $(TOOLS)
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 
-$(ELF): $(BOOT_OBJS) $(OBJS) bare-metal.ld
-	$(LD) $(LDLAGS) -T bare-metal.ld $(BOOT_OBJS) $(OBJS) -o $@
+$(ELF): $(OBJS) bare-metal.ld
+	$(LD) $(LDLAGS) -T bare-metal.ld $(OBJS) -o $@
 
 $(OBJ_HOME)/%.o: $(SRC_HOME)/%.c
 	@mkdir -p $(shell dirname $@)
