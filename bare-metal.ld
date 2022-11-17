@@ -36,6 +36,6 @@ SECTIONS
     
     . = ALIGN(0x1000);
     bootstack = .;
-    . += 0x1000;
+    . += 0x4000;
     bootstacktop = . ;
 }
