@@ -39,8 +39,8 @@ void trap_handler()
 		break;
 	}
 
-	uart_puts("era: ");
-	print_hex(era);
+	// uart_puts("era: ");
+	// print_hex(era);
 	csr_write(era, CSR_ERA);
 	csr_write(prmd, CSR_PRMD);
 }
