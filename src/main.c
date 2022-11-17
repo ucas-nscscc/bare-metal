@@ -1,7 +1,7 @@
 #include <soc.h>
 #include <mysoc.h>
 #include <funcs.h>
-#include <stdio.h>
+#include <myio.h>
 #include <traps.h>
 #include <uart.h>
 

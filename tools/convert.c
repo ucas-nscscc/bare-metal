@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <myio.h>
 #include <stdlib.h>
 void binary_out(FILE* out,unsigned char* mem)
 {
