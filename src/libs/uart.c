@@ -1,5 +1,6 @@
 #include <mysoc.h>
 #include <traps.h>
+#include <stdio.h>
 
 #define COM_RX          0x1000  // In:  Receive buffer (DLAB=0)
 #define COM_TX          0x1000  // Out: Transmit buffer (DLAB=0)
@@ -64,7 +65,7 @@ void uart_putc_sub(int c)
 /* uart_putc - print character to uart port */
 void uart_putc(int c)
 {
-    if (c == '\n') {
+    if (c == '\r' || c == '\n') {
         uart_putc_sub('\r');
         uart_putc_sub('\n');
     } else if (c == '\b') {
