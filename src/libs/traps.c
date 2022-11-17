@@ -28,7 +28,6 @@ void trap_handler()
 	// uart_puts("era: ");
 	// print_hex(era);
 
-
 	switch(estat & ecfg)
 	{
 	case UART_IRQ:

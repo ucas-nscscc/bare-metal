@@ -31,4 +31,10 @@
 		: "memory");		\
 })
 
+#define gpr_read(reg) 					\
+({							\
+	register unsigned int __val __asm__("$r"#reg);	\
+	__val;						\
+})
+
 #endif
