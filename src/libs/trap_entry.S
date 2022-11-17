@@ -41,18 +41,8 @@ trap_entry:
 	st.w	$s7, $sp, 116
 	st.w	$s8, $sp, 120
 
-	move	$a0, $sp
-	bl	print_hex
-	ld.w	$a0, $sp, 0
-	bl	print_hex
-
 	// call the C trap handler in trap.c
 	bl trap_handler
-
-	move	$a0, $sp
-	bl	print_hex
-	ld.w	$a0, $sp, 0
-	bl	print_hex
 
 	// restore register
 	ld.w	$ra, $sp, 0
