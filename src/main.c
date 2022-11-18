@@ -8,29 +8,12 @@
 int main()
 {
 	struct soc *mysoc = mysoc_init();
-	char str[10] = "hello\n";
-	unsigned int crmd;
-	unsigned int ecfg;
-	unsigned int eentry;
 
 	uart_init();
 
-	uart_putc('h');
-	uart_putc('e');
-	uart_puts("hello");
+	uart_puts("Hello, world!\n");
 
 	trap_init();
-	crmd = csr_read(CSR_CRMD);
-	ecfg = csr_read(CSR_ECFG);
-	eentry = csr_read(CSR_EENTRY);
-	uart_puts("crmd: ");
-	print_hex(crmd);
-	uart_puts("ecfg: ");
-	print_hex(ecfg);
-	uart_puts("eentry: ");
-	print_hex(eentry);	
-
-	// mysoc->led->turn_on_mask(mysoc->led, 0x7);
 
 	horse_race_lamp(mysoc);
 
