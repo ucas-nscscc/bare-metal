@@ -19,15 +19,6 @@ void trap_handler()
 	unsigned int estat = csr_read(CSR_ESTAT);
 	unsigned int ecfg = csr_read(CSR_ECFG);
 
-	// uart_puts("handle interrupt");
-
-	// uart_puts("ecfg: ");
-	// print_hex(ecfg);
-	// uart_puts("estat: ");
-	// print_hex(estat);
-	// uart_puts("era: ");
-	// print_hex(era);
-
 	switch(estat & ecfg)
 	{
 	case UART_IRQ:
@@ -38,8 +29,6 @@ void trap_handler()
 		break;
 	}
 
-	// uart_puts("era: ");
-	// print_hex(era);
 	csr_write(era, CSR_ERA);
 	csr_write(prmd, CSR_PRMD);
 }
