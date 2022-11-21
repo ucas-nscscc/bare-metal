@@ -4,7 +4,7 @@
 #include <soc.h>
 #include <timer.h>
 
-#define GPIO_BASE               0xbfaf0000
+#define GPIO_BASE		0xbfaf0000
 #define IO_SIMU_OFFSET		0xff00
 #define UART_OFFSET		0xff10
 #define SIMU_FLAG_OFFSET	0xff20
@@ -20,9 +20,9 @@
 #define SW_INTER_OFFSET		0xf090 //switch interleave
 #define TIMER_OFFSET		0xe000
 
-#define COM1_BAUD_DDL   0x36 // 50M CPU clk
-#define COM1            0x1fe00000
-#define COM1_IRQ        2
+#define COM1_BAUD_DDL	0x36 // 50M CPU clk
+#define COM1		0x1fe00000
+#define COM1_IRQ	2
 
 #define IO_SIMU_ADDR		(GPIO_BASE + IO_SIMU_OFFSET)
 #define UART_ADDR		(GPIO_BASE + UART_OFFSET)
@@ -55,13 +55,13 @@
 
 static inline unsigned int
 inw(unsigned int port) {
-    unsigned int data = *((volatile unsigned int *) port);
-    return data;
+	unsigned int data = *((volatile unsigned int *) port);
+	return data;
 }
 
 static inline void
 outw(unsigned int port, unsigned int data) {
-    *((volatile unsigned int *) port) = data;
+	*((volatile unsigned int *) port) = data;
 }
 
 struct soc *mysoc_init();
