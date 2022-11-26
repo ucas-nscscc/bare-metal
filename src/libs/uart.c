@@ -67,7 +67,7 @@ void uart_putc(int c)
 	if (c == '\r' || c == '\n') {
 		uart_putc_sub('\r');
 		uart_putc_sub('\n');
-	} else if (c == '\b') {
+	} else if (c == '\b' || c == 127) {
 		uart_putc_sub('\b');
 		uart_putc_sub(' ');
 		uart_putc_sub('\b');
