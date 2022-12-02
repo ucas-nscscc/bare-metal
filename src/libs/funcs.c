@@ -1,65 +1,57 @@
 #include <drivers/gpio.h>
 #include <time.h>
+#include <myio.h>
 
 void horse_race_lamp()
 {
 	unsigned int i = 0;
-	unsigned short led_status = 0xffff;
+	unsigned short led_status = 0xfffe;
 	unsigned int time;
 	int led = gpio_open("led", "w");
-	// struct led *led = gpio->led;
-	// struct led_rg * led_rg0 = gpio->led_rg0;
-	// struct led_rg * led_rg1 = gpio->led_rg1;
-	// struct btn_key * btn_key = gpio->btn_key;
-	// struct timer *timer = gpio->timer;
+	int btn_key = gpio_open("btn key", "r");
 	unsigned int turn_off, turn_on;
 
 	while(1) {
-		turn_off = (i + 16 - 1) % 16;
-		turn_on = i % 16;
-
-		led_status |= (0x1 << turn_off);
-		led_status &= ~(0x1 << turn_on);
-
 		gpio_write(led, led_status);
-
-		// led_rg0->turn_on(led_rg0, i % 4);
-		// led_rg1->turn_on(led_rg1, (i + 1) % 4);
-		
-		// timer->delay(timer, 1);
 		time = get_sec();
 
 		while (get_sec() - time < 1) ;
 		
 		i = (i + 1) % 16;
-		// if (btn_key->get_one(btn_key, 0)) return;
+		led_status = (led_status << 1) | ((led_status & 0x8000) >> 15);
+		if (gpio_read(btn_key) & 0x1)
+			break;
 	}
+
+	gpio_close(led);
+	gpio_close(btn_key);
 }
 
-// void fib(struct gpio * gpio)
-// {
-// 	struct num * num = gpio->num;
-// 	struct sw * sw = gpio->sw;
-// 	struct btn_key * btn_key = gpio->btn_key;
+void fib()
+{
+	int num = gpio_open("num", "w");
+	int btn_key = gpio_open("btn key", "r");
+	int sw = gpio_open("sw", "r");
 
-// 	while (1) {
-// 		while (!btn_key->get_one(btn_key, 15)){
-// 			if (btn_key->get_one(btn_key, 1)) return;
-// 		}
-// 		int end_i = sw->get_all(sw);
+	while (1) {
+		while (((gpio_read(btn_key) >> 15) & 0x1) == 0){
+			if ((gpio_read(btn_key) >> 1) & 0x1)
+				return;
+		}
+		unsigned char end_i = ~gpio_read(sw);
 		
-// 		unsigned int f0 = 1, f1 = 1, f2, sum;
-// 		if (end_i == 1) sum = 1;
-// 		else if (end_i == 2) sum = 2;
-// 		else {
-// 			sum = f0 + f1;
-// 			for (int i = 2; i < end_i; i++) {
-// 				f2 = f0 + f1;
-// 				f0 = f1;
-// 				f1 = f2;
-// 				sum += f2;
-// 			}
-// 		}
-// 		num->set_all(num, sum);
-// 	}
-// }
+		unsigned int f0 = 1, f1 = 1, f2, sum;
+		if (end_i == 1) sum = 1;
+		else if (end_i == 2) sum = 2;
+		else {
+			sum = f0 + f1;
+			for (int i = 2; i < end_i; i++) {
+				f2 = f0 + f1;
+				f0 = f1;
+				f1 = f2;
+				sum += f2;
+			}
+		}
+		gpio_write(num, sum);
+	}
+}

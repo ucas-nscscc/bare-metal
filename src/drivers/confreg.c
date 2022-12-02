@@ -33,19 +33,41 @@ static void led_set_all(uint value)
 	*(volatile unsigned *)(LED_ADDR) = value;
 }
 
-static uint confreg_init_gpio_devs()
+static uint btn_key_get_all()
+{
+	return *(volatile unsigned *)(BTN_KEY_ADDR);
+}
+
+static void num_set_all(uint value)
+{
+	*(volatile unsigned *)(NUM_ADDR) = value;
+}
+
+static uint sw_get_all()
+{
+	return *(volatile unsigned *)(SWITCH_ADDR);
+}
+
+static void confreg_init_gpio_devs()
 {
 	int desc_idx;
-	uint gpio_nr = 0;
+	struct dev_desc *dev_desc;
 
-	desc_idx = alloc_gpio_desc(&confreg);
-	strcpy(confreg.descs[desc_idx].dev_desc.name, "led");
-	confreg.descs[desc_idx].dev_desc.flag = DEV_WRITE;
-	confreg.descs[desc_idx].dev_desc.opend = GPIO_CLOSED;
-	confreg.descs[desc_idx].dev_desc.write = led_set_all;
-	gpio_nr++;
+#define init_gpio_dev(name, flag, write, read)			\
+{								\
+	desc_idx = alloc_gpio_desc(&confreg);			\
+	if (desc_idx == -1) {					\
+		printk("alloc gpio desc failed!\n");		\
+		return;						\
+	}							\
+	dev_desc = &confreg.descs[desc_idx].dev_desc;		\
+	init_dev_desc(dev_desc, name, flag, write, read);	\
+}
 
-	return gpio_nr;
+	init_gpio_dev("led", DEV_WRITE, led_set_all, NULL);
+	init_gpio_dev("btn key", DEV_READ, NULL, btn_key_get_all);
+	init_gpio_dev("num", DEV_WRITE, num_set_all, NULL);
+	init_gpio_dev("sw", DEV_READ, NULL, sw_get_all);
 }
 
 void confreg_init()

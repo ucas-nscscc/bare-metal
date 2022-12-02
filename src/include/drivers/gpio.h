@@ -4,9 +4,6 @@
 #include <types.h>
 #include <drivers/dev_desc.h>
 
-#define GPIO_CLOSED	0x0
-#define GPIO_OPENED	0x1
-
 typedef uint gpio_desc_bitmap_t;
 typedef uint gdev_num_t;
 

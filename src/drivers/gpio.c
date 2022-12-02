@@ -105,8 +105,8 @@ int gpio_open(const char *name, const char *perm)
 			ddesc = &gdesc->dev_desc;
 			if (strcmp(name, ddesc->name) == 0) {
 				if (flag == ddesc->flag) {
-					if (ddesc->opend == GPIO_CLOSED) {
-						ddesc->opend = GPIO_OPENED;
+					if (ddesc->opend == DEV_CLOSED) {
+						ddesc->opend = DEV_OPENED;
 						return gdesc->gpio;
 					}
 					printk("gpio %d is already opened!\n", gdesc->gpio);
@@ -128,7 +128,7 @@ void gpio_close(int gpio)
 		uart_puts("no such gpio device!\n");
 		return;
 	}
-	gdesc->dev_desc.opend = GPIO_CLOSED;
+	gdesc->dev_desc.opend = DEV_CLOSED;
 }
 
 void gpio_write(gdev_num_t gpio, uint value)

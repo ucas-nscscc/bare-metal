@@ -17,13 +17,11 @@ int main()
 
 	horse_race_lamp();
 
-	// fib(confreg);
+	fib();
 
-	// confreg->led_rg0->turn_on(confreg->led_rg0, LED_RG_GREEN);
-	// confreg->led_rg1->turn_on(confreg->led_rg1, LED_RG_GREEN);
-	// confreg->led->turn_off_mask(confreg->led, 0xffff);
-	// confreg->led->turn_on_num(confreg->led, 8);
-	// confreg->num->set_all(confreg->num, 0);
+	while (1) {
+		;
+	}
 
 	return 0;
 }
