@@ -1,9 +1,9 @@
 #ifndef _FUNCS_H
 #define _FUNCS_H
 
-#include <soc.h>
+#include <drivers/gpio.h>
 
-void fib(struct soc*);
-void horse_race_lamp(struct soc*);
+void fib(struct gpio*);
+void horse_race_lamp(struct gpio*);
 
 #endif

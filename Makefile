@@ -1,16 +1,18 @@
-CROSS_COMPILE:=loongarch32r-linux-gnusf-
+ARCH         :=loongarch32r
+CROSS_COMPILE:=$(ARCH)-linux-gnusf-
 CC           :=$(CROSS_COMPILE)gcc
 LD           :=$(CROSS_COMPILE)ld
 OBJCOPY      :=$(CROSS_COMPILE)objcopy
 OBJDUMP      :=$(CROSS_COMPILE)objdump
 QEMU         :=qemu-system-loongarch64
+NEMU         :=$(NEMU_HOME)/build/$(ARCH)-nemu-interpreter
 
 HOST_CC:=gcc
 
 BUILD_HOME:=./build
 OBJ_HOME  :=$(BUILD_HOME)/obj
 SRC_HOME  :=./src
-INC_HOME  :=$(SRC_HOME)/include
+INC_HOME  :=$(SRC_HOME)/include $(SRC_HOME)/arch/$(ARCH)/include
 INCLUDE    =$(addprefix -I, $(INC_HOME))
 SCRIPTS_HOME:=./scripts
 TOOLS_HOME:=./tools
@@ -57,10 +59,12 @@ $(BUILD_HOME)/convert: $(TOOLS_HOME)/convert.c
 $(BUILD_HOME)/test.S: $(ELF)
 	$(OBJDUMP) -d $< > $@
 
-qemu: main.bin
+nemu: $(BUILD_HOME)/main.bin
+	$(NEMU) -b --log=$(BUILD_HOME)/nemu-log.txt $(BUILD_HOME)/main.bin
+qemu: $(BUILD_HOME)/main.bin
 	$(QEMU) -m 1G -bios main.bin -nographic
 
-qemu-debug: main.bin
+qemu-debug: $(BUILD_HOME)/main.bin
 	$(QEMU) -m 2G -bios main.bin -nographic -s -S
 
 clean:

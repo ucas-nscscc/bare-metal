@@ -37,4 +37,15 @@
 	__val;						\
 })
 
+static inline unsigned int
+inw(unsigned int port) {
+	unsigned int data = *((volatile unsigned int *) port);
+	return data;
+}
+
+static inline void
+outw(unsigned int port, unsigned int data) {
+	*((volatile unsigned int *) port) = data;
+}
+
 #endif

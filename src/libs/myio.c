@@ -1,4 +1,4 @@
-#include <uart.h>
+#include <drivers/uart.h>
 
 static char hex_digits[] = "0123456789abcdef";
 

@@ -1,13 +1,10 @@
 #ifndef _TRAPS_H
 #define _TRAPS_H
 
-#include <mysoc.h>
-#include <loongarchregs.h>
+#include <asm/mysoc.h>
+#include <asm/loongarchregs.h>
 
 #define UART_IRQ (0x1 << COM1_IRQ)
-
-void pic_enable(unsigned int irq);
-void trap_init(void);
 
 #define irq_enable()					\
 {							\

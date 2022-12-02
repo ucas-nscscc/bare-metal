@@ -1,13 +1,13 @@
 #include <funcs.h>
 
-void horse_race_lamp(struct soc *soc)
+void horse_race_lamp(struct gpio *gpio)
 {
 	unsigned int i = 0;
-	struct led *led = soc->led;
-	struct led_rg * led_rg0 = soc->led_rg0;
-	struct led_rg * led_rg1 = soc->led_rg1;
-	struct btn_key * btn_key = soc->btn_key;
-	struct timer *timer = soc->timer;
+	struct led *led = gpio->led;
+	struct led_rg * led_rg0 = gpio->led_rg0;
+	struct led_rg * led_rg1 = gpio->led_rg1;
+	struct btn_key * btn_key = gpio->btn_key;
+	struct timer *timer = gpio->timer;
 	unsigned int turn_off, turn_on;
 
 	while(1) {
@@ -27,11 +27,11 @@ void horse_race_lamp(struct soc *soc)
 	}
 }
 
-void fib(struct soc * soc)
+void fib(struct gpio * gpio)
 {
-	struct num * num = soc->num;
-	struct sw * sw = soc->sw;
-	struct btn_key * btn_key = soc->btn_key;
+	struct num * num = gpio->num;
+	struct sw * sw = gpio->sw;
+	struct btn_key * btn_key = gpio->btn_key;
 
 	while (1) {
 		while (!btn_key->get_one(btn_key, 15)){

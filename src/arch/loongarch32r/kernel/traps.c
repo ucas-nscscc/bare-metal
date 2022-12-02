@@ -1,7 +1,7 @@
-#include <loongarchregs.h>
+#include <asm/loongarchregs.h>
+#include <asm/traps.h>
 #include <myio.h>
-#include <traps.h>
-#include <uart.h>
+#include <drivers/uart.h>
 
 extern void trap_entry(void);
 

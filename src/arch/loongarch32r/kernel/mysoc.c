@@ -1,5 +1,5 @@
-#include <mysoc.h>
-#include <soc.h>
+#include <drivers/gpio.h>
+#include <asm/mysoc.h>
 
 #pragma region led
 void led_turn_on_num(struct led *this, unsigned int num)
@@ -157,7 +157,7 @@ static struct timer mysoc_timer = {
 #pragma endregion timer
 
 
-static struct soc mysoc = {
+static struct gpio confreg = {
 	.led	= &mysoc_led,
 	.led_rg0= &mysoc_led_rg0,
 	.led_rg1= &mysoc_led_rg1,
@@ -167,12 +167,12 @@ static struct soc mysoc = {
 	.timer  = &mysoc_timer,
 };
 
-struct soc *mysoc_init()
+struct gpio *mysoc_init()
 {
 	// turn off all LEDs
-	mysoc.led->turn_off_mask(mysoc.led, 0xffff);
-	mysoc.led_rg0->turn_off(mysoc.led_rg0);
-	mysoc.led_rg1->turn_off(mysoc.led_rg1);
+	confreg.led->turn_off_mask(confreg.led, 0xffff);
+	confreg.led_rg0->turn_off(confreg.led_rg0);
+	confreg.led_rg1->turn_off(confreg.led_rg1);
 
-	return &mysoc;
+	return &confreg;
 }
