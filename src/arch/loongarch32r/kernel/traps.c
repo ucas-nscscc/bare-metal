@@ -36,5 +36,4 @@ void trap_handler()
 void trap_init()
 {
 	csr_write((unsigned int)trap_entry, CSR_EENTRY);
-	irq_enable();
 }
