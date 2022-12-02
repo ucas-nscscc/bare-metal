@@ -1,5 +1,38 @@
-#ifndef _LOONGARCHREGS_H
-#define _LOONGARCHREGS_H
+#ifndef _ARCH_LOONGARCHREGS_H
+#define _ARCH_LOONGARCHREGS_H
+
+#define GPR_ZERO	0x0
+#define GPR_RA		0x1
+#define GPR_TP		0x2
+#define GPR_SP		0x3
+#define GPR_A0		0x4
+#define GPR_A1		0x5
+#define GPR_A2		0x6
+#define GPR_A3		0x7
+#define GPR_A4		0x8
+#define GPR_A5		0x9
+#define GPR_A6		0xa
+#define GPR_A7		0xb
+#define GPR_T0		0xc
+#define GPR_T1		0xd
+#define GPR_T2		0xe
+#define GPR_T3		0xf
+#define GPR_T4		0x10
+#define GPR_T5		0x11
+#define GPR_T6		0x12
+#define GPR_T7		0x13
+#define GPR_T8		0x14
+#define GPR_R21		0x15
+#define GPR_FP		0x16
+#define GPR_S0		0x17
+#define GPR_S1		0x18
+#define GPR_S2		0x19
+#define GPR_S3		0x1a
+#define GPR_S4		0x1b
+#define GPR_S5		0x1c
+#define GPR_S6		0x1d
+#define GPR_S7		0x1e
+#define GPR_S8		0x1f
 
 #define CSR_CRMD			0x0
 #define CSR_PRMD			0x1

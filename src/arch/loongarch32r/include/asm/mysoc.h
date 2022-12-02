@@ -1,5 +1,5 @@
-#ifndef _MYSOC_H
-#define _MYSOC_H
+#ifndef _ARCH_MYSOC_H
+#define _ARCH_MYSOC_H
 
 #include <drivers/gpio.h>
 #include <time.h>
@@ -15,8 +15,12 @@
 #define LED_RG_RED		(0x2)
 #define LED_RG_GREEN_RED	(LED_RG_GREEN | LED_RG_RED)
 
+#define PMEM_BASE	0x1c009000
+#define PMEM_SIZE	0x00007000
+
 void arch_gpio_init();
 void arch_time_init();
+void arch_mm_init(uint *pmem_base, uint *pmem_size);
 
 extern void confreg_init();
 extern void constant_timer_init();

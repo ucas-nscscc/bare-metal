@@ -1,5 +1,5 @@
-#ifndef _TRAPS_H
-#define _TRAPS_H
+#ifndef _ARCH_TRAPS_H
+#define _ARCH_TRAPS_H
 
 #include <asm/mysoc.h>
 #include <asm/loongarchregs.h>
