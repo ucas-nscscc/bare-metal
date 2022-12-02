@@ -16,6 +16,9 @@
 #define LED_RG_GREEN_RED	(LED_RG_GREEN | LED_RG_RED)
 
 void arch_gpio_init();
+void arch_time_init();
+
 extern void confreg_init();
+extern void constant_timer_init();
 
 #endif

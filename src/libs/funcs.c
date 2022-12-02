@@ -1,9 +1,11 @@
 #include <drivers/gpio.h>
+#include <time.h>
 
 void horse_race_lamp()
 {
 	unsigned int i = 0;
 	unsigned short led_status = 0xffff;
+	unsigned int time;
 	int led = gpio_open("led", "w");
 	// struct led *led = gpio->led;
 	// struct led_rg * led_rg0 = gpio->led_rg0;
@@ -25,6 +27,9 @@ void horse_race_lamp()
 		// led_rg1->turn_on(led_rg1, (i + 1) % 4);
 		
 		// timer->delay(timer, 1);
+		time = get_sec();
+
+		while (get_sec() - time < 1) ;
 		
 		i = (i + 1) % 16;
 		// if (btn_key->get_one(btn_key, 0)) return;

@@ -12,7 +12,6 @@
 #define BTN_KEY_OFFSET		0xf070
 #define BTN_STEP_OFFSET		0xf080
 #define SW_INTER_OFFSET		0xf090 //switch interleave
-#define TIMER_OFFSET		0xe000
 
 #define LED_ADDR		(GPIO_BASE + LED_OFFSET)
 #define LED_RG0_ADDR		(GPIO_BASE + LED_RG0_OFFSET)
@@ -22,7 +21,6 @@
 #define BTN_KEY_ADDR		(GPIO_BASE + BTN_KEY_OFFSET)
 #define BTN_STEP_ADDR		(GPIO_BASE + BTN_STEP_OFFSET)
 #define SW_INTER_ADDR		(GPIO_BASE + SW_INTER_OFFSET) //switch interleave
-#define TIMER_ADDR		(GPIO_BASE + TIMER_OFFSET)
 
 static struct gpio_chip confreg = {
 	.gpio_nr = 0,
@@ -41,10 +39,10 @@ static uint confreg_init_gpio_devs()
 	uint gpio_nr = 0;
 
 	desc_idx = alloc_gpio_desc(&confreg);
-	strcpy(confreg.descs[desc_idx].name, "led");
-	confreg.descs[desc_idx].flag = GPIO_WRITE;
-	confreg.descs[desc_idx].opend = GPIO_CLOSED;
-	confreg.descs[desc_idx].set_all = led_set_all;
+	strcpy(confreg.descs[desc_idx].dev_desc.name, "led");
+	confreg.descs[desc_idx].dev_desc.flag = DEV_WRITE;
+	confreg.descs[desc_idx].dev_desc.opend = GPIO_CLOSED;
+	confreg.descs[desc_idx].dev_desc.write = led_set_all;
 	gpio_nr++;
 
 	return gpio_nr;
@@ -52,11 +50,6 @@ static uint confreg_init_gpio_devs()
 
 void confreg_init()
 {
-	uint gpio_nr;
-
-	uart_puts("enter confreg_init\n");
-	gpio_nr = confreg_init_gpio_devs();
-	print_hex(gpio_nr);
+	confreg_init_gpio_devs();
 	register_gpio_chip(&confreg);
-	uart_puts("exit confreg_init\n");
 }

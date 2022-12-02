@@ -77,16 +77,17 @@ int gpio_open(const char *name, const char *perm)
 	gpio_desc_bitmap_t bitmap;
 	struct gpio_chip *chip;
 	struct gpio_desc *gdesc;
+	struct dev_desc *ddesc;
 	int i, j;
 
 	while (*perm) {
 		switch (*perm)
 		{
 		case 'r':
-			flag |= GPIO_READ;
+			flag |= DEV_READ;
 			break;
 		case 'w':
-			flag |= GPIO_WRITE;
+			flag |= DEV_WRITE;
 			break;
 		default:
 			break;
@@ -101,10 +102,11 @@ int gpio_open(const char *name, const char *perm)
 			if (bitmap & 0x1 == 0)
 				continue;
 			gdesc = &chip->descs[j];
-			if (strcmp(name, gdesc->name) == 0) {
-				if (flag == gdesc->flag) {
-					if (gdesc->opend == GPIO_CLOSED) {
-						gdesc->opend = GPIO_OPENED;
+			ddesc = &gdesc->dev_desc;
+			if (strcmp(name, ddesc->name) == 0) {
+				if (flag == ddesc->flag) {
+					if (ddesc->opend == GPIO_CLOSED) {
+						ddesc->opend = GPIO_OPENED;
 						return gdesc->gpio;
 					}
 					printk("gpio %d is already opened!\n", gdesc->gpio);
@@ -126,7 +128,7 @@ void gpio_close(int gpio)
 		uart_puts("no such gpio device!\n");
 		return;
 	}
-	gdesc->opend = GPIO_CLOSED;
+	gdesc->dev_desc.opend = GPIO_CLOSED;
 }
 
 void gpio_write(gdev_num_t gpio, uint value)
@@ -137,7 +139,7 @@ void gpio_write(gdev_num_t gpio, uint value)
 		return;
 	}
 
-	gdesc->set_all(value);
+	gdesc->dev_desc.write(value);
 }
 
 uint gpio_read(gdev_num_t gpio)
@@ -148,5 +150,5 @@ uint gpio_read(gdev_num_t gpio)
 		return 0;
 	}
 
-	return gdesc->get_all();
+	return gdesc->dev_desc.read();
 }

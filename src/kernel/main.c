@@ -1,6 +1,7 @@
 #include <funcs.h>
 #include <myio.h>
 #include <irq.h>
+#include <time.h>
 #include <asm/traps.h>
 #include <drivers/gpio.h>
 #include <drivers/uart.h>
@@ -10,16 +11,9 @@ int main()
 	irq_disable();
 	uart_init();
 	gpio_init();
-	// struct gpio *confreg = mysoc_init();
+	time_init();
 	trap_init();
 	irq_enable();
-
-	int led = gpio_open("led", "w");
-
-	print_hex(led);
-	gpio_write(led, 0xf);
-
-	gpio_close(led);
 
 	horse_race_lamp();
 

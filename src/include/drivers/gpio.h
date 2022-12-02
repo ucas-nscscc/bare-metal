@@ -2,9 +2,7 @@
 #define _GPIO_H
 
 #include <types.h>
-
-#define GPIO_READ	0x1
-#define GPIO_WRITE	0x2
+#include <drivers/dev_desc.h>
 
 #define GPIO_CLOSED	0x0
 #define GPIO_OPENED	0x1
@@ -13,12 +11,8 @@ typedef uint gpio_desc_bitmap_t;
 typedef uint gdev_num_t;
 
 struct gpio_desc {
-	char	name[32];
-	int	flag;
-	uint	gpio;
-	uint	opend;
-	void	(*set_all)(uint value);
-	uint	(*get_all)();
+	struct dev_desc	dev_desc;
+	uint		gpio;
 };
 
 #define MAX_GPIO_DESCS 16

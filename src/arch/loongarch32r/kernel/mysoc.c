@@ -181,3 +181,8 @@ void arch_gpio_init()
 {
 	confreg_init();
 }
+
+void arch_time_init()
+{
+	constant_timer_init();
+}
