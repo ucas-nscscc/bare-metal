@@ -6,6 +6,9 @@
 
 static struct timer *timer = NULL;
 
+#define TICKS_PER_US (timer->freq / (1 MHz))
+#define TICKS_PER_SEC (TICKS_PER_US * (1 MHz))
+
 static uint get_ticks()
 {
 	if (timer == NULL) {
@@ -21,7 +24,7 @@ static uint ticks_to_us(uint ticks)
 		printk("timer not registered!\n");
 		return 0;
 	}
-	return ticks / (timer->freq / (1 MHz));
+	return ticks / TICKS_PER_US;
 }
 
 static uint ticks_to_sec(uint ticks)
@@ -30,7 +33,7 @@ static uint ticks_to_sec(uint ticks)
 		printk("timer not registered!\n");
 		return 0;
 	}
-	return ticks / (timer->freq / (1 MHz) * (1 MHz));
+	return ticks / TICKS_PER_SEC;
 }
 
 uint get_us()
