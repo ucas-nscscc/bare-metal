@@ -13,7 +13,7 @@
 #define MYSOC_TIMER_FREQ	(100 MHz)
 #define LED_RG_GREEN		(0x1)
 #define LED_RG_RED		(0x2)
-#define LED_RG_GREEN_RED	(LED_RG_GREEN | LED_RG_RED)
+#define LED_RG_YELLOW   	(LED_RG_GREEN | LED_RG_RED)
 
 #define PMEM_BASE	0x1c00a000
 #define PMEM_SIZE	0x00006000
