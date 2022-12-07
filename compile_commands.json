@@ -1,0 +1,268 @@
+[
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/drivers/constant_timer.o",
+            "src/drivers/constant_timer.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/drivers/constant_timer.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/kernel/time.o",
+            "src/kernel/time.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/kernel/time.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/drivers/dev_desc.o",
+            "src/drivers/dev_desc.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/drivers/dev_desc.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/arch/loongarch32r/kernel/trap_entry.o",
+            "src/arch/loongarch32r/kernel/trap_entry.S"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/arch/loongarch32r/kernel/trap_entry.S"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/drivers/gpio.o",
+            "src/drivers/gpio.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/drivers/gpio.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/kernel/main.o",
+            "src/kernel/main.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/kernel/main.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/libs/funcs.o",
+            "src/libs/funcs.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/libs/funcs.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/drivers/confreg.o",
+            "src/drivers/confreg.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/drivers/confreg.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/drivers/axi-uart-16550.o",
+            "src/drivers/axi-uart-16550.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/drivers/axi-uart-16550.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/arch/loongarch32r/boot/boot.o",
+            "src/arch/loongarch32r/boot/boot.S"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/arch/loongarch32r/boot/boot.S"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/arch/loongarch32r/kernel/mysoc.o",
+            "src/arch/loongarch32r/kernel/mysoc.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/arch/loongarch32r/kernel/mysoc.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/arch/loongarch32r/kernel/switch_context.o",
+            "src/arch/loongarch32r/kernel/switch_context.S"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/arch/loongarch32r/kernel/switch_context.S"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/arch/loongarch32r/kernel/traps.o",
+            "src/arch/loongarch32r/kernel/traps.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/arch/loongarch32r/kernel/traps.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/libs/string.o",
+            "src/libs/string.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/libs/string.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/mm/mm.o",
+            "src/mm/mm.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/mm/mm.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/libs/myio.o",
+            "src/libs/myio.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/libs/myio.c"
+    },
+    {
+        "arguments": [
+            "loongarch32r-linux-gnusf-gcc",
+            "-c",
+            "-nostdlib",
+            "-O0",
+            "-I./src/include",
+            "-I./src/arch/loongarch32r/include",
+            "-o",
+            "build/obj/kernel/sched.o",
+            "src/kernel/sched.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "src/kernel/sched.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-o",
+            "build/convert",
+            "tools/convert.c"
+        ],
+        "directory": "/home/haooops/Documents/nscscc-2023/bare-metal",
+        "file": "tools/convert.c"
+    }
+]

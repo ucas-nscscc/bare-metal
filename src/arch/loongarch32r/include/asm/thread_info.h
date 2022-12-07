@@ -6,9 +6,15 @@
 #include <asm/ptrace.h>
 
 struct thread_info {
-	struct task_struct	task;
-	struct pt_regs		*regs;
+	struct task_struct	*task;
 	struct thread_info	*next;
+};
+
+struct task_frame {
+	ulong ra;
+	ulong tp;
+	ulong a0;
+	ulong s[9];
 };
 
 register struct thread_info *__current_thread_info __asm__("$r2");

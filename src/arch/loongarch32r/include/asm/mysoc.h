@@ -15,8 +15,8 @@
 #define LED_RG_RED		(0x2)
 #define LED_RG_GREEN_RED	(LED_RG_GREEN | LED_RG_RED)
 
-#define PMEM_BASE	0x1c009000
-#define PMEM_SIZE	0x00007000
+#define PMEM_BASE	0x1c00a000
+#define PMEM_SIZE	0x00006000
 
 void arch_gpio_init();
 void arch_time_init();
