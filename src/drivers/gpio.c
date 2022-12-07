@@ -45,7 +45,7 @@ void free_gpio_desc(struct gpio_chip *chip, int sub_gpio)
 	uint gpio;
 	if (sub_gpio <= 0 || sub_gpio > MAX_GPIO_DESCS)
 		return;
-	if ((chip->bitmap >> sub_gpio) & 0x1 == 0)
+	if (((chip->bitmap >> sub_gpio) & 0x1) == 0)
 		return;
 	gpio = chip->descs[sub_gpio].gpio;
 	gpio_bitmap &= ~(0x1 << gpio);
@@ -62,7 +62,7 @@ static struct gpio_desc *gpio_to_desc(gdev_num_t gpio)
 		chip = gpio_chips[i];
 		bitmap = chip->bitmap;
 		for (j = 0; j < MAX_GPIO_DESCS; bitmap >>= 1, j++) {
-			if (bitmap & 0x1 == 0)
+			if ((bitmap & 0x1) == 0)
 				continue;
 			if (gpio == chip->descs[j].gpio)
 				return &chip->descs[j];
@@ -99,7 +99,7 @@ int gpio_open(const char *name, const char *perm)
 		chip = gpio_chips[i];
 		bitmap = chip->bitmap;
 		for (j = 0; j < MAX_GPIO_DESCS; bitmap >>= 1, j++) {
-			if (bitmap & 0x1 == 0)
+			if ((bitmap & 0x1) == 0)
 				continue;
 			gdesc = &chip->descs[j];
 			ddesc = &gdesc->dev_desc;
