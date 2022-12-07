@@ -1,6 +1,7 @@
 #include <asm/mysoc.h>
 #include <asm/traps.h>
 #include <irq.h>
+#include <mmio.h>
 
 #define COM_RX		0x1000	// In:  Receive buffer (DLAB=0)
 #define COM_TX		0x1000	// Out: Transmit buffer (DLAB=0)
