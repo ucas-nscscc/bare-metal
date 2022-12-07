@@ -1,8 +1,8 @@
 #include <asm/mysoc.h>
 #include <mm.h>
 
-static uint pmem_base;
-static uint pmem_size;
+static ulong pmem_base;
+static ulong pmem_size;
 
 static struct page_desc *free_pages = NULL;
 
@@ -14,8 +14,8 @@ void mm_init()
 	pdesc = (struct page_desc *)pmem_base;
 	free_pages = pdesc;
 	while (1) {
-		next_page = (void *)((uint)pdesc + PAGE_SIZE);
-		if ((uint)next_page >= (pmem_base + pmem_size)) {
+		next_page = (void *)((ulong)pdesc + PAGE_SIZE);
+		if ((ulong)next_page >= (pmem_base + pmem_size)) {
 			pdesc->next = NULL;
 			break;
 		}

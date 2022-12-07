@@ -20,7 +20,7 @@
 
 void arch_gpio_init();
 void arch_time_init();
-void arch_mm_init(uint *pmem_base, uint *pmem_size);
+void arch_mm_init(ulong *pmem_base, ulong *pmem_size);
 
 extern void confreg_init();
 extern void constant_timer_init();
